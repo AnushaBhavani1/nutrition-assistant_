@@ -1,0 +1,1031 @@
+{
+  "info": {
+    "name": "Nutrition Assistant API",
+    "description": "Postman collection for testing the Nutrition Assistant REST API.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000/api"
+    },
+    {
+      "key": "token",
+      "value": ""
+    },
+    {
+      "key": "foodId",
+      "value": ""
+    },
+    {
+      "key": "mealId",
+      "value": ""
+    },
+    {
+      "key": "recipeId",
+      "value": ""
+    },
+    {
+      "key": "dietPlanId",
+      "value": ""
+    },
+    {
+      "key": "suggestionId",
+      "value": ""
+    },
+    {
+      "key": "foodLogId",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Jane Doe\",\n  \"email\": \"jane@example.com\",\n  \"password\": \"password123\",\n  \"age\": 28,\n  \"gender\": \"female\",\n  \"height\": 165,\n  \"weight\": 60,\n  \"goal\": \"weight_loss\",\n  \"activityLevel\": \"moderate\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/register",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "register"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"jane@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/logout",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "logout"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "User",
+      "item": [
+        {
+          "name": "Get Profile",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users/profile",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "profile"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Profile",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"weight\": 58,\n  \"goal\": \"maintain_weight\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users/profile",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "profile"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Foods",
+      "item": [
+        {
+          "name": "Get All Foods",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/foods",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "foods"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Search Foods",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/foods/search?q=banana",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "foods",
+                "search"
+              ],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "banana"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Food",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Quinoa\",\n  \"servingSize\": \"1 cup (185g)\",\n  \"calories\": 222,\n  \"protein\": 8,\n  \"carbs\": 39,\n  \"fat\": 3.6,\n  \"fiber\": 5.2,\n  \"sugar\": 1.6,\n  \"sodium\": 13,\n  \"category\": \"grains\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/foods",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "foods"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Food By Id",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/foods/{{foodId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "foods",
+                "{{foodId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Food",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"calories\": 225\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/foods/{{foodId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "foods",
+                "{{foodId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Food",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/foods/{{foodId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "foods",
+                "{{foodId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Food Log",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/foods/log",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "foods",
+                "log"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Add Food to Log",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"food\": \"{{foodId}}\",\n  \"quantity\": 1,\n  \"servingSize\": \"1 medium\",\n  \"mealType\": \"breakfast\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/foods/log",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "foods",
+                "log"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Food Log Entry",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"quantity\": 2\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/foods/log/{{foodLogId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "foods",
+                "log",
+                "{{foodLogId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Food Log Entry",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/foods/log/{{foodLogId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "foods",
+                "log",
+                "{{foodLogId}}"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Meals",
+      "item": [
+        {
+          "name": "Get Meals",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/meals",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "meals"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Meal",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"mealType\": \"breakfast\",\n  \"foods\": [\n    { \"food\": \"{{foodId}}\", \"quantity\": 1 }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/meals",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "meals"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Meal",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"mealType\": \"lunch\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/meals/{{mealId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "meals",
+                "{{mealId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Meal",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/meals/{{mealId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "meals",
+                "{{mealId}}"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Recipes",
+      "item": [
+        {
+          "name": "Get Recipes",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/recipes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "recipes"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Recipe",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Simple Salad\",\n  \"description\": \"A light, healthy salad.\",\n  \"ingredients\": [\"Lettuce\", \"Tomato\", \"Olive oil\"],\n  \"steps\": [\"Chop vegetables\", \"Toss with olive oil\"],\n  \"calories\": 150,\n  \"protein\": 3,\n  \"carbs\": 10,\n  \"fat\": 10,\n  \"prepTime\": 10,\n  \"difficulty\": \"easy\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/recipes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "recipes"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Recipe By Id",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/recipes/{{recipeId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "recipes",
+                "{{recipeId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Recipe",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"difficulty\": \"medium\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/recipes/{{recipeId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "recipes",
+                "{{recipeId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Recipe",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/recipes/{{recipeId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "recipes",
+                "{{recipeId}}"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Diet Plans",
+      "item": [
+        {
+          "name": "Get Diet Plans",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/plans",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "plans"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Diet Plan",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Summer Weight Loss Plan\",\n  \"goal\": \"weight_loss\",\n  \"targetCalories\": 1800,\n  \"description\": \"Focus on lean protein and vegetables.\",\n  \"startDate\": \"2026-07-01\",\n  \"endDate\": \"2026-08-31\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/plans",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "plans"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Diet Plan By Id",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/plans/{{dietPlanId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "plans",
+                "{{dietPlanId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Diet Plan",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"completed\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/plans/{{dietPlanId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "plans",
+                "{{dietPlanId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Diet Plan",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/plans/{{dietPlanId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "plans",
+                "{{dietPlanId}}"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Suggestions",
+      "item": [
+        {
+          "name": "Get Suggestions",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/suggestions",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "suggestions"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Generate Suggestion",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"category\": \"high_protein\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/suggestions",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "suggestions"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Suggestion",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"suggestionText\": \"Edited suggestion text.\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/suggestions/{{suggestionId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "suggestions",
+                "{{suggestionId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Suggestion",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/suggestions/{{suggestionId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "suggestions",
+                "{{suggestionId}}"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Dashboard",
+      "item": [
+        {
+          "name": "Get Dashboard",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/dashboard",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "dashboard"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Weekly Report",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/dashboard/report?range=weekly",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "dashboard",
+                "report"
+              ],
+              "query": [
+                {
+                  "key": "range",
+                  "value": "weekly"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Daily Report",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/dashboard/report?range=daily",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "dashboard",
+                "report"
+              ],
+              "query": [
+                {
+                  "key": "range",
+                  "value": "daily"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "AI",
+      "item": [
+        {
+          "name": "Get AI Recommendation",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"message\": \"Suggest a protein-rich breakfast\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/ai/recommend",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ai",
+                "recommend"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
